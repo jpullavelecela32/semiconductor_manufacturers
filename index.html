@@ -6,12 +6,15 @@
 
 <!-- Create a div where the graph will take place -->
 <div id="my_dataviz"></div>
-
+<p id="graph-description">These companies are the largest producers of Semiconductor processors in the world. 
+This industry is vital for the manufacturing of electronics, applicances, vehicles and even military equipment. The Coronavirus pandemic disrupted the chain supply of these chips worsening the world's production of the products previously mentioned.
+But things might be changing to avoid a similar situation in the future.
+Some of these companies have allocated billions to build plants in the U.S. These facilities will bring strengthen the country's production of chips and create thousands of jobs in the years to come.</p>
 <script>
 
 
     // set the dimensions and margins of the graph
-    const margin = {top: 20, right: 30, bottom: 40, left: 100},
+    const margin = {top: 50, right: 30, bottom: 40, left: 110},
         width = 900 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
     
@@ -23,11 +26,17 @@
       .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
     
+        svg.append("text")
+  .attr("x", width / 2)
+  .attr("y", -margin.top / 2)
+  .attr("text-anchor", "middle")
+  .style("font-size", "20px")
+  .text("The World's most profitable Semiconductor manufacturers");
     // Parse the Data
     const data=
 [
     {
-      Company: "Samsung Electronics",
+      Company: " Samsung Electronics",
       Revenue : "65.6"
     },
     {
@@ -61,10 +70,12 @@
       const xScale = d3.scaleLinear()
             .domain([0, 75]) //input data
             .range([0, width]) // visual display
+           // .tickValues(["in Billions"]);
 
-            const yScale = d3.scaleBand()
+           const yScale = d3.scaleBand()
             .domain(sortedData.map(d=> d.Company))
             .range([height, 0])
+
 
             const colorScale = d3.scaleLinear()
             .domain([2000, 1500])
@@ -76,8 +87,14 @@
         svg.append("g")
             .attr("transform", `translate(0 , ${height})`)
             .call(d3.axisBottom(xScale))
-    
-      //Bars
+            .call(d3.axisBottom(xScale))
+    .append("text")
+    .attr("x", width / 2)
+    .attr("y", margin.bottom - 10)
+    .attr("fill", "black")
+    .text("Revenue (in Billions)")
+
+   
       
       svg.selectAll("rect")
             .data(sortedData)
@@ -87,6 +104,25 @@
             .attr("width", (d) =>{return xScale(d.Revenue)})
             .attr("height", yScale.bandwidth()-2)
             .attr("fill","turquoise")
-    
+            
+        
+    // Parse the Data
     
     </script>
+
+<style>
+  #graph-description {
+    font-size: 14px;
+    color: #888;
+    margin-top: 10px;
+    text-align: left;
+  }
+  div, p {
+    width: auto;
+  margin: 0 auto;
+  align-items: center;
+  padding: 0 20px 20px 20px;
+  flex: auto;
+
+  }
+</style>
