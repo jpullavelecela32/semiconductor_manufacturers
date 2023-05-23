@@ -1,1 +1,1 @@
-# semiconductor_manufarturers
+# semiconductor_manufacturers
