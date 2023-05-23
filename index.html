@@ -103,12 +103,20 @@ Some of these companies have allocated billions to build plants in the U.S. Thes
       svg.selectAll("rect")
             .data(sortedData)
             .join("rect")
+
+            .transition()
+            .duration(500)
             .attr("x", xScale(0))
             .attr("y", (d) => {return yScale(d.Company)})
             .attr("width", (d) =>{return xScale(d.Revenue)})
             .attr("height", yScale.bandwidth()-2)
             .attr("fill","turquoise")
-            
+   
+  
+  //.attr("y", d => y(d.Value))
+  //.attr("height", d => height - y(d.Value))
+  .delay((d,i) => {console.log(i); return i*100})
+
         
     // Parse the Data
     
@@ -122,11 +130,18 @@ Some of these companies have allocated billions to build plants in the U.S. Thes
     text-align: left;
   }
   div, p {
-    width: auto;
+  width: auto;
   margin: 0 auto;
   align-items: center;
   padding: 0 20px 20px 20px;
   flex: auto;
 
+  }
+
+  #my_dataviz {
+    width: auto;
+  margin: 0 auto;
+  align-items: center;
+  flex: auto;
   }
 </style>
